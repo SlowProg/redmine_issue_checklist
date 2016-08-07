@@ -7,3 +7,5 @@ en:
   permission_view_checklists: View checklist items
   permission_done_checklists: Change done ratio based on checklist
   permission_edit_checklists: Edit checklist items
+  label_checklist_status_done: Status when done ratio is 100%
+  label_checklist_status_back: Status when done ratio rollback down from 100%

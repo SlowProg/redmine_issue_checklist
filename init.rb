@@ -14,7 +14,8 @@ Redmine::Plugin.register :redmine_issue_checklist do
 
   settings :default => {
     :save_log => false,
-    :issue_done_ratio => false
+    :issue_done_ratio => false,
+    :status_transitions => nil
   }, :partial => 'settings/issue_checklist'
 
   Redmine::AccessControl.map do |map|
@@ -24,5 +25,4 @@ Redmine::Plugin.register :redmine_issue_checklist do
       map.permission :edit_checklists, {:issue_checklist => :delete, :issue_checklist => :done}
     end
   end
-
 end

@@ -8,27 +8,36 @@ class IssueChecklist < ActiveRecord::Base
   attr_protected :id
 
   validates_presence_of :subject
-  
+
   # after_save :recalc_issue_done_ratio
-  
+
   def editable_by?(usr=User.current)
     usr && (usr.allowed_to?(:edit_checklists, project) || (self.author == usr && usr.allowed_to?(:edit_own_checklists, project)))
   end
-  
+
   def project
-    self.issue.project if self.issue 
-  end  
-  
+    self.issue.project if self.issue
+  end
+
   def info
     "[#{self.is_done ? 'x' : ' ' }] #{self.subject.strip}"
   end
-  
+
   def recalc_issue_done_ratio
     return false if (Setting.issue_done_ratio != "issue_field") || !RedmineIssueChecklist.settings[:issue_done_ratio]
+    done_ratio_old = issue.done_ratio
+
     done_checklist = issue.checklist.map{|c| c.is_done ? 1 : 0}
     issue.done_ratio = (done_checklist.count(1) * 10) / done_checklist.count * 10
+
+    # Change status if done_ratio 100 and if done_ratio was 100
+    if issue.done_ratio == 100 && RedmineIssueChecklist.settings[:status_done]
+      issue.status_id = RedmineIssueChecklist.settings[:status_done]
+    elsif done_ratio_old == 100 && issue.done_ratio < 100 && RedmineIssueChecklist.settings[:status_back]
+      issue.status_id = RedmineIssueChecklist.settings[:status_back]
+    end
+
     issue.save
   end
-  
-  
+
 end

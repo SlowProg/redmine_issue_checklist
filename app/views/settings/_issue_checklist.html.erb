@@ -5,8 +5,20 @@
 </p>
 
 <% if Setting.issue_done_ratio == "issue_field" %>
-<p>  
+<p>
   <label><%= l(:label_checklist_done_ratio) %></label>
   <%= check_box_tag 'settings[issue_done_ratio]', 1, @settings[:issue_done_ratio] %>
 </p>
 <% end %>
+
+<p>
+  <label><%= l(:label_checklist_status_done) %></label>
+  <%= select_tag 'settings[status_done]',
+      content_tag(:option, '', :value => '') + options_from_collection_for_select(IssueStatus.all, :id, :name, @settings['status_done']) %>
+</p>
+
+<p>
+  <label><%= l(:label_checklist_status_back) %></label>
+  <%= select_tag 'settings[status_back]',
+      content_tag(:option, '', :value => '') + options_from_collection_for_select(IssueStatus.all, :id, :name, @settings['status_back']) %>
+</p>

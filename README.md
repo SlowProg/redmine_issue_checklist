@@ -1,11 +1,8 @@
 # Redmine Issue Checklist Plugin
 
-[![Build Status](https://travis-ci.org/Undev/redmine_issue_checklist.png?branch=master)](https://travis-ci.org/Undev/redmine_issue_checklist)
-[![Code Climate](https://codeclimate.com/github/Undev/redmine_issue_checklist.png)](https://codeclimate.com/github/Undev/redmine_issue_checklist)
+This plugin enables you to add checklists to Redmine issues.
 
-This plugin enables you to add checklists to Redmine issues. 
-
-The initial author of the plugin is [Kirill Bezrukov](http://www.redminecrm.com/projects/checklist/pages/1)
+The initial author of the plugin is [Kirill Bezrukov](http://www.redminecrm.com/projects/checklist/pages/1) and [Danil Tashkinov](https://github.com/nodecarter).
 
 ## Compatibility
 
@@ -15,26 +12,26 @@ This plugin version is compatible only with Redmine 2.0 and later.
 
 1. To install the plugin
     * Download the .ZIP archive, extract files and copy the plugin directory into #{REDMINE_ROOT}/plugins.
-    
+
     Or
 
     * Change you current directory to your Redmine root directory:  
 
             cd {REDMINE_ROOT}
-            
+
       Copy the plugin from GitHub using the following commands:
-      
-            git clone https://github.com/Undev/redmine_issue_checklist.git plugins/redmine_issue_checklist
-            
+
+            git clone https://github.com/SlowProg/redmine_issue_checklist.git plugins/redmine_issue_checklist
+
 2. Update the Gemfile.lock file by running the following commands:  
 
          rm Gemfile.lock  
          bundle install
-            
+
 3. This plugin requires a migration. Run the following command to upgrade your database (make a database backup before):  
 
-        bundle exec rake redmine:plugins:migrate RAILS_ENV=production 
-        
+        bundle exec rake redmine:plugins:migrate RAILS_ENV=production
+
 4. Restart Redmine.
 
 Now you should be able to see the plugin in **Administration > Plugins**.
@@ -43,7 +40,17 @@ Now you should be able to see the plugin in **Administration > Plugins**.
 
 The Redmine Issue Checklist plugin enables you to add checklists to Redmine issues.
 
-You can configure the plugin to track the checklist changes in the issue log and change the issue done ratio based on the checklist progress. To do this, go to **Administration > Plugins**, clik**Configure** and select the corresponding check boxes.  
+You can configure the plugin:
+
+1. Track the checklist changes in the issue log.
+
+2. Change the issue done ratio based on the checklist progress.
+
+3. Change the issue status when done ratio is 100%.
+
+4. Change the issue status when done ratio rollback down from 100%.
+
+To do this, go to **Administration > Plugins**, click **Configure** and select the corresponding check boxes.  
 ![plugin settings](issue_checklist_1.PNG)
 
 To add a checklist to an issue, enter the checklist item text into the the **Checklist** field in the issue description and click the **+** button.  
@@ -63,11 +70,7 @@ To manage checklist-related permissions, go to **Administration > Roles and perm
 Run tests using the following command:
 
     rake redmine:plugins:test NAME=redmine_issue_checklist RAILS_ENV=test_sqlite3
-    
-## Maintainers
 
-Danil Tashkinov, [github.com/nodecarter](https://github.com/nodecarter)
- 
 ## License
 
 Redmine Checklist plugin is open source and released under the terms of the GNU General Public License v2 (GPL).

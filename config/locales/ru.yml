@@ -7,4 +7,5 @@ ru:
   permission_view_checklists: Просматривать чеклисты
   permission_done_checklists: Выполнять чеклисты
   permission_edit_checklists: Редактировать чеклисты
-  
+  label_checklist_status_done: Статус при достижении 100% готовности
+  label_checklist_status_back: Статус при откате готовности от 100%
