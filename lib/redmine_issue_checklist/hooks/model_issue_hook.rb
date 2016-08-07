@@ -21,6 +21,18 @@ module RedmineIssueChecklist
   module Hooks
     class ModelIssueHook < Redmine::Hook::ViewListener
 
+      def model_project_copy_before_save(context = {})
+        source = context[:source_project]
+        destination = context[:destination_project]
+
+        destination.issues.each_with_index do |destination_issue, index|
+          if source.issues[index].checklist
+            destination_issue.copy_from_with_checklist(source.issues[index])
+            destination_issue.project = destination
+          end
+        end
+      end
+
       def controller_issues_edit_before_save(context={})
         if User.current.allowed_to?(:edit_checklists, context[:issue].project)
           save_checklist_to_issue(context, RedmineIssueChecklist.settings[:save_log])
